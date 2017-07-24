@@ -1,0 +1,134 @@
+﻿@using AresDataProvider.Web.Views.DemoView.App_LocalResources;
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Index";
+}
+<script src="https://unpkg.com/vue"></script>
+<script src="~/Scripts/vue-resource.min.js"></script>
+
+<div id="vueApp" style="margin-top: 10%">
+	<div class="ui input">
+		<label>@Index_cshtml.TaxID</label>
+		<input type="text" v-model="taxIdInput" />
+	</div>
+
+	<div class="ui two columns grid" id="result">
+		<div class="column">
+			<div class="ui raised segment" id="basicInfo">
+				<div class="ui header">@Index_cshtml.BasicInfos</div>
+				<div class="ui segment">
+					<p><strong>@Index_cshtml.CompanyName</strong> {{obj.CompanyName}}</p>
+				</div>
+				<div class="ui segment">
+					<p><strong>@Index_cshtml.TaxID</strong> {{obj.TaxId}}</p>
+				</div>
+				<div class="ui raised segments">
+					<div class="ui segment">@Index_cshtml.AddressInfos</div>
+					<div class="ui segment">
+						<p>&nbsp;&nbsp;<strong>@Index_cshtml.Country</strong> {{obj.Address.Country}}</p>
+					</div>
+					<div class="ui segment">
+						<p>&nbsp;&nbsp;<strong>@Index_cshtml.City</strong> {{obj.Address.City}}</p>
+					</div>
+					<div class="ui segment">
+						<p>&nbsp;&nbsp;<strong>@Index_cshtml.ZipCode</strong> {{obj.Address.ZIPCode}}</p>
+					</div>
+					<div class="ui segment">
+						<p>&nbsp;&nbsp;<strong>@Index_cshtml.Street</strong> {{obj.Address.Street}}</p>
+					</div>
+				</div>
+				<div class="ui segment">
+					<p><strong>@Index_cshtml.Created</strong> {{obj.Created}}</p>
+				</div>
+				<div class="ui segment">
+					<p><strong>@Index_cshtml.Estate</strong> {{obj.Estate}}</p>
+				</div>
+			</div>
+		</div>
+		<div class="column">
+			<div class="ui raised segment" id="extendedInfo">
+				<div class="ui header">@Index_cshtml.ExtendedInfos</div>
+				<div class="ui segments">
+					<div class="ui segment"><strong>@Index_cshtml.Members</strong></div>
+					<div class="ui black segment" v-for="member in obj.Members">
+						<div class="ui segment">
+							<p><strong>@Index_cshtml.FullName</strong> {{member.FullName}}</p>
+						</div>
+						<div class="horizontal segments">
+							<div class="ui segment">
+								<p><strong>@Index_cshtml.Born</strong> {{member.Born}}</p>
+							</div>
+							<div class="ui segment">
+								<p><strong>@Index_cshtml.Role</strong> {{member.Role}}</p>
+							</div>
+						</div>
+						<div class="ui segment">
+							<strong>@Index_cshtml.AddressInfos</strong>
+							<div class="ui horizontal segments">
+								<div class="ui segment">&nbsp;&nbsp;<strong>@Index_cshtml.Country</strong> {{member.Address.Country}}</div>
+								<div class="ui segment">&nbsp;&nbsp;<strong>@Index_cshtml.City</strong> {{member.Address.City}}</div>
+							</div>
+							<div class="ui horizontal segments">
+								<div class="ui segment">&nbsp;&nbsp;<strong>@Index_cshtml.ZipCode</strong> {{member.Address.ZIPCode}}</div>
+								<div class="ui segment">&nbsp;&nbsp;<strong>@Index_cshtml.Street</strong> {{member.Address.Street}}</div>
+							</div>
+						</div>
+						<div class="ui segment">
+							<p><strong>@Index_cshtml.MembershipStartDate</strong> {{member.MemberStartDate}}</p>
+						</div>
+						<div class="ui segment">
+							<p><strong>@Index_cshtml.FunctionStartDate</strong> {{member.MemberStartDate}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="~/Scripts/semantic.min.js"></script>
+
+<script>
+	new Vue({
+		el: '#vueApp',
+		data: {
+			urlForTaxId: '',
+			taxIdInput: '',
+			obj: {
+				Address: {}
+			}
+		},
+		watch: {
+			taxIdInput: function (newVal) {
+				this.taxIdInput = newVal;
+				this.UpdateTaxIdInput();
+			}
+		},
+		methods: {
+			SendRequestTo: function (url) {
+				this.$http.get(url)
+					.then(function (response) {
+						console.dir(response);
+						this.obj = response.data;
+						console.log(this.obj);
+					});
+			},
+			UpdateTaxIdInput: function () {
+				if (this.taxIdInput.length === 8 && Number(this.taxIdInput) !== NaN && this.taxIdInput !== '') {
+					$('#basicInfo').toggleClass('loading');
+					$('#extendedInfo').toggleClass('loading');
+					this.SendRequestTo(
+						'/api/companyregistry/by?taxid=' + this.taxIdInput + '&extended=true'
+					);
+					$('#basicInfo').toggleClass('loading');
+					$('#extendedInfo').toggleClass('loading');
+				}
+			}
+		},
+		created: function() {
+			$('#result').display('none');
+		}
+	})
+
+
+</script>
