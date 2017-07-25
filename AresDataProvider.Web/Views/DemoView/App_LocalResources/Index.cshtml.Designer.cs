@@ -160,6 +160,24 @@ namespace AresDataProvider.Web.Views.DemoView.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Input Field for Tax ID or Company Name.
+        /// </summary>
+        public static string InputField {
+            get {
+                return ResourceManager.GetString("InputField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tax ID or Company Name.
+        /// </summary>
+        public static string InputPlaceholder {
+            get {
+                return ResourceManager.GetString("InputPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Members.
         /// </summary>
         public static string Members {

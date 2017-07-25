@@ -6,10 +6,14 @@
 <script src="https://unpkg.com/vue"></script>
 <script src="~/Scripts/vue-resource.min.js"></script>
 
-<div id="vueApp" style="margin-top: 10%">
+<div id="vueApp" style="margin-top: 4%">
 	<div class="ui input">
-		<label>@Index_cshtml.TaxID</label>
-		<input type="text" v-model="taxIdInput" />
+		<label>@Index_cshtml.InputField</label>
+		<input type="text" v-model="userInput" placeholder="@Index_cshtml.InputPlaceholder" />
+	</div>
+	<div class="ui disabled input" id="city">
+		<label>@Index_cshtml.City</label>
+		<input type="text" v-model="city" placeholder="@Index_cshtml.City" />
 	</div>
 
 	<div class="ui two columns grid" id="result">
@@ -93,15 +97,20 @@
 		el: '#vueApp',
 		data: {
 			urlForTaxId: '',
-			taxIdInput: '',
+			userInput: '',
+			cityInput: '',
 			obj: {
 				Address: {}
 			}
 		},
 		watch: {
-			taxIdInput: function (newVal) {
-				this.taxIdInput = newVal;
-				this.UpdateTaxIdInput();
+			userInput: function (newVal) {
+				this.userInput = newVal;
+				this.UpdateUserInput();
+			},
+			city: function (newVal) {
+				this.city = newVal;
+				this.SearchByNameAndCity();
 			}
 		},
 		methods: {
@@ -113,20 +122,29 @@
 						console.log(this.obj);
 					});
 			},
-			UpdateTaxIdInput: function () {
-				if (this.taxIdInput.length === 8 && Number(this.taxIdInput) !== NaN && this.taxIdInput !== '') {
-					$('#basicInfo').toggleClass('loading');
-					$('#extendedInfo').toggleClass('loading');
-					this.SendRequestTo(
-						'/api/companyregistry/by?taxid=' + this.taxIdInput + '&extended=true'
-					);
-					$('#basicInfo').toggleClass('loading');
-					$('#extendedInfo').toggleClass('loading');
+			UpdateUserInput: function () {
+				if (this.userInput.length === 8 && Number(this.userInput) !== NaN && this.userInput !== '') {
+					this.MakeRequest('/api/companyregistry/by?taxid=' + this.userInput + '&extended=true');
 				}
+				else if (Number(this.userInput) === NaN) {
+					$('#city').toggleClass('disabled');
+				}
+			},
+			SearchByNameAndCity: function () {
+				if (this.city !== '' && this.userInput !== '') {
+					this.MakeRequest('/api/companyregistry/by?name=' + this.userInput + '&city=' + this.city + '&extended=true');
+				}
+			},
+			MakeRequest: function (url) {
+				$('#basicInfo').toggleClass('loading');
+				$('#extendedInfo').toggleClass('loading');
+				this.SendRequestTo(url);
+				$('#basicInfo').toggleClass('loading');
+				$('#extendedInfo').toggleClass('loading');
 			}
 		},
-		created: function() {
-			$('#result').display('none');
+		created: function () {
+			$('#result').css('display', 'none');
 		}
 	})
 

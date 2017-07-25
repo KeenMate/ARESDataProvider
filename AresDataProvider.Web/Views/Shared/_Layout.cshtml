@@ -18,11 +18,16 @@
 					<span class="icon-bar"></span>
 				</button>
 				@Html.ActionLink("KEEN|MATE - Ares wrapper", "Index", "DemoView", new { area = "" }, new { @class = "navbar-brand" })
-				@Html.ActionLink("Česky", "Index", "DemoView", new { lang = "cs-CZ" }, null)
-				@Html.ActionLink("English", "Index", "DemoView", new { lang = "en" }, null)
 			</div>
 			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav"></ul>
+				<ul class="nav navbar-nav">
+					<li>
+						@Html.ActionLink("Česky", "Index", "DemoView", new { lang = "cs-CZ" }, null)
+					</li>
+					<li>
+						@Html.ActionLink("English", "Index", "DemoView", new { lang = "en" }, null)
+					</li>
+				</ul>
 			</div>
 		</div>
 	</div>

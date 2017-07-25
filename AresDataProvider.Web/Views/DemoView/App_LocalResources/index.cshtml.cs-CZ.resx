@@ -150,6 +150,12 @@
   <data name="FunctionStartDate" xml:space="preserve">
     <value>Datum Začátku Funkce</value>
   </data>
+  <data name="InputField" xml:space="preserve">
+    <value>Pole pro Hledání podle IČO, nebo Názvu firmy</value>
+  </data>
+  <data name="InputPlaceHolder" xml:space="preserve">
+    <value>IČO nebo Název Firmy</value>
+  </data>
   <data name="Members" xml:space="preserve">
     <value>Členové</value>
   </data>

@@ -150,6 +150,12 @@
   <data name="FunctionStartDate" xml:space="preserve">
     <value>Function Start Date</value>
   </data>
+  <data name="InputField" xml:space="preserve">
+    <value>Input Field for Tax ID or Company Name</value>
+  </data>
+  <data name="InputPlaceholder" xml:space="preserve">
+    <value>Tax ID or Company Name</value>
+  </data>
   <data name="Members" xml:space="preserve">
     <value>Members</value>
   </data>

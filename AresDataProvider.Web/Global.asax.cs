@@ -20,21 +20,5 @@ namespace AresDataProvider.Web
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 		}
-
-		protected void Application_BeginRequest(object sender, EventArgs e)
-		{
-			HttpCookie cookie = Request.Cookies.Get("Language");
-
-			if (cookie?.Value != null)
-			{
-				Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(cookie.Value);
-				Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(cookie.Value);
-			}
-			else
-			{
-				Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("cs-CZ");
-				Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("cs-CZ");
-			}
-		}
 	}
 }
