@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using AresDataProvider.Data;
@@ -25,10 +26,11 @@ namespace AresDataProvider.Mappers
 						data.Odpoved.Vypis_OR.KAP.ZA.VK.KC
 							.Substring(0, data.Odpoved.Vypis_OR.KAP.ZA.VK.KC.IndexOf(';') - 1))
 					: 0,
-				EstatePercent = data.Odpoved.Vypis_OR.KAP != null ? Convert.ToDecimal(data.Odpoved.Vypis_OR.KAP.ZA.SPL.PRC)
+				EstatePercent = data.Odpoved.Vypis_OR.KAP != null ? Convert.ToDecimal(data.Odpoved.Vypis_OR.KAP.ZA.SPL?.PRC ?? string.Empty)
 					: 0,
 				LegalForm = data.Odpoved.Vypis_OR.ZAU.PFO.NPF,
-				ScopeOfBusiness = data.Odpoved.Vypis_OR.CIN.PP.T,
+				ScopeOfBusiness = data.Odpoved.Vypis_OR.CIN != null ? data.Odpoved.Vypis_OR.CIN.PP.T
+					: new List<string>(),
 				TaxId = data.Odpoved.Vypis_OR.ZAU.ICO
 			} : new CompanyDataModel
 			{
@@ -55,49 +57,55 @@ namespace AresDataProvider.Mappers
 					Estate = data.Odpoved.Vypis_OR.KAP != null ?
 						Convert
 							.ToInt64(
-								data.Odpoved.Vypis_OR.KAP.ZA.VK.KC
-									.Substring(0, data.Odpoved.Vypis_OR.KAP.ZA.VK.KC.IndexOf(';') - 1))
+								data.Odpoved.Vypis_OR.KAP.ZA.VK.KC.Contains(';') ? data.Odpoved.Vypis_OR.KAP.ZA.VK.KC
+									.Substring(0, data.Odpoved.Vypis_OR.KAP.ZA.VK.KC.IndexOf(';') - 1)
+									: data.Odpoved.Vypis_OR.KAP.ZA.VK.KC)
 						: 0,
-					EstatePercent = data.Odpoved.Vypis_OR.KAP != null ? Convert.ToDecimal(data.Odpoved.Vypis_OR.KAP.ZA.SPL.PRC)
+					EstatePercent = data.Odpoved.Vypis_OR.KAP != null ? Convert.ToDecimal(data.Odpoved.Vypis_OR.KAP.ZA.SPL?.PRC ?? "0")
 						: 0,
 					LegalForm = data.Odpoved.Vypis_OR.ZAU.PFO.NPF,
-					ScopeOfBusiness = data.Odpoved.Vypis_OR.CIN.PP.T,
+					ScopeOfBusiness = data.Odpoved.Vypis_OR.CIN != null ? data.Odpoved.Vypis_OR.CIN.PP.T
+						: new List<string>(),
 					TaxId = data.Odpoved.Vypis_OR.ZAU.ICO,
-					BoardRuling = data.Odpoved.Vypis_OR.SO.T,
+					BoardRulling = data.Odpoved.Vypis_OR.SO != null ? data.Odpoved.Vypis_OR.SO.T
+						: string.Empty,
 					Share = new ExtendedCompanyDataModel.ShareData
 					{
 						Amount = data.Odpoved.Vypis_OR.KAP != null ?
 							Convert
 								.ToInt32(
-									data.Odpoved.Vypis_OR.KAP.Akcie.EM.Pocet)
+									data.Odpoved.Vypis_OR.KAP.Akcie?.EM?.Pocet ?? "0")
 							: 0,
 						ShareType = data.Odpoved.Vypis_OR.KAP != null ?
-							data.Odpoved.Vypis_OR.KAP.Akcie.EM.DA
-							: string.Empty,
+							data.Odpoved.Vypis_OR.KAP.Akcie?.EM?.DA ?? "None"
+							: "None",
 						ShareValue = data.Odpoved.Vypis_OR.KAP != null ?
 							Convert
 								.ToDecimal(
-									data.Odpoved.Vypis_OR.KAP.Akcie.EM.H.Substring(0, data.Odpoved.Vypis_OR.KAP.Akcie.EM.H.IndexOf(';')))
+									data.Odpoved.Vypis_OR.KAP.Akcie?.EM?.H?.Substring(0, data.Odpoved.Vypis_OR.KAP.Akcie.EM.H.IndexOf(';')) ?? "0")
 							: 0
 					}
 				};
 
-				d.Members.AddRange(data.Odpoved.Vypis_OR.SO.CSO.Select(x => new ExtendedCompanyDataModel.BoardMember
+				d.Members.AddRange(data.Odpoved.Vypis_OR.SO?.CSO?.Select(x => new ExtendedCompanyDataModel.BoardMember
 				{
 					Address = new CompanyDataModel.AddressData
 					{
-						City = x.C.FO.B.N,
-						Country = x.C.FO.B.NS,
-						Street = x.C.FO.B.NU,
-						ZIPCode = x.C.FO.B.PSC
+						City = x.C.FO?.B.N ?? string.Empty,
+						Country = x.C.FO?.B.NS ?? string.Empty,
+						Street = x.C.FO?.B.NU ?? string.Empty,
+						ZIPCode = x.C.FO?.B.PSC ?? string.Empty
 					},
-					Born = DateTime.ParseExact(x.C.FO.DN, "yyyy-MM-dd", new CultureInfo("cs-CZ")),
+					Born = x.C.FO != null ? DateTime.ParseExact(x.C.FO?.DN, "yyyy-MM-dd", new CultureInfo("cs-CZ"))
+						: (DateTime?)null,
 					EndDate = null,
-					FullName = x.C.FO.J + " " + x.C.FO.P,
+					FullName = x.C.FO?.J ?? "" + " " + x.C.FO?.P,
 					Role = x.C.F,
-					MemberStartDate = DateTime.ParseExact(x.C.CLE.DZA, "yyyy-MM-dd", new CultureInfo("cs-CZ")),
-					FunctionStartDate = DateTime.ParseExact(x.C.VF.DZA, "yyyy-MM-dd", new CultureInfo("cs-CZ"))
-				}));
+					MemberStartDate = x.C.CLE != null ? DateTime.ParseExact(x.C.CLE?.DZA, "yyyy-MM-dd", new CultureInfo("cs-CZ"))
+						: (DateTime?)null,
+					FunctionStartDate = x.C.VF != null ? DateTime.ParseExact(x.C.VF.DZA, "yyyy-MM-dd", new CultureInfo("cs-CZ"))
+						: (DateTime?)null
+				}) ?? new List<ExtendedCompanyDataModel.BoardMember>());
 			}
 			else
 			{

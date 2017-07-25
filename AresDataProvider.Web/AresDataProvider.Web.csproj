@@ -249,6 +249,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\grid.min.css" />
     <Content Include="Content\icon.min.css" />
+    <Content Include="Content\input.min.css" />
     <Content Include="Content\segment.min.css" />
     <Content Include="Content\semantic.min.css" />
     <Content Include="Content\tab.min.css" />

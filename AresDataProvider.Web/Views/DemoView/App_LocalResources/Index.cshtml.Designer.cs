@@ -61,6 +61,15 @@ namespace AresDataProvider.Web.Views.DemoView.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Address.
+        /// </summary>
+        public static string Address {
+            get {
+                return ResourceManager.GetString("Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Address Informations.
         /// </summary>
         public static string AddressInfos {
@@ -75,6 +84,15 @@ namespace AresDataProvider.Web.Views.DemoView.App_LocalResources {
         public static string BasicInfos {
             get {
                 return ResourceManager.GetString("BasicInfos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Board Rulling.
+        /// </summary>
+        public static string BoardRulling {
+            get {
+                return ResourceManager.GetString("BoardRulling", resourceCulture);
             }
         }
         
@@ -129,6 +147,15 @@ namespace AresDataProvider.Web.Views.DemoView.App_LocalResources {
         public static string Estate {
             get {
                 return ResourceManager.GetString("Estate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Estate Paid.
+        /// </summary>
+        public static string EstatePaid {
+            get {
+                return ResourceManager.GetString("EstatePaid", resourceCulture);
             }
         }
         
@@ -192,6 +219,15 @@ namespace AresDataProvider.Web.Views.DemoView.App_LocalResources {
         public static string MembershipStartDate {
             get {
                 return ResourceManager.GetString("MembershipStartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Results.
+        /// </summary>
+        public static string Results {
+            get {
+                return ResourceManager.GetString("Results", resourceCulture);
             }
         }
         

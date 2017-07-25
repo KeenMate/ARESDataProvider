@@ -5,15 +5,30 @@
 }
 <script src="https://unpkg.com/vue"></script>
 <script src="~/Scripts/vue-resource.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
 
-<div id="vueApp" style="margin-top: 4%">
+<style>
+	#vueApp {
+		margin-top: 60px;
+	}
+
+	#result {
+		margin-top: 20px;
+	}
+
+	#error {
+		display: none;
+	}
+</style>
+
+<div id="vueApp">
 	<div class="ui input">
 		<label>@Index_cshtml.InputField</label>
 		<input type="text" v-model="userInput" placeholder="@Index_cshtml.InputPlaceholder" />
 	</div>
-	<div class="ui disabled input" id="city">
+	<div class="ui input" id="city">
 		<label>@Index_cshtml.City</label>
-		<input type="text" v-model="city" placeholder="@Index_cshtml.City" />
+		<input type="text" v-model="cityInput" placeholder="@Index_cshtml.City" />
 	</div>
 
 	<div class="ui two columns grid" id="result">
@@ -21,31 +36,34 @@
 			<div class="ui raised segment" id="basicInfo">
 				<div class="ui header">@Index_cshtml.BasicInfos</div>
 				<div class="ui segment">
-					<p><strong>@Index_cshtml.CompanyName</strong> {{obj.CompanyName}}</p>
+					<p><strong>@Index_cshtml.CompanyName</strong> {{response.CompanyName}}</p>
 				</div>
 				<div class="ui segment">
-					<p><strong>@Index_cshtml.TaxID</strong> {{obj.TaxId}}</p>
+					<p><strong>@Index_cshtml.TaxID</strong> {{response.TaxId}}</p>
 				</div>
 				<div class="ui raised segments">
 					<div class="ui segment">@Index_cshtml.AddressInfos</div>
 					<div class="ui segment">
-						<p>&nbsp;&nbsp;<strong>@Index_cshtml.Country</strong> {{obj.Address.Country}}</p>
+						<p>&nbsp;&nbsp;<strong>@Index_cshtml.Country</strong> {{response.Address.Country}}</p>
 					</div>
 					<div class="ui segment">
-						<p>&nbsp;&nbsp;<strong>@Index_cshtml.City</strong> {{obj.Address.City}}</p>
+						<p>&nbsp;&nbsp;<strong>@Index_cshtml.City</strong> {{response.Address.City}}</p>
 					</div>
 					<div class="ui segment">
-						<p>&nbsp;&nbsp;<strong>@Index_cshtml.ZipCode</strong> {{obj.Address.ZIPCode}}</p>
+						<p>&nbsp;&nbsp;<strong>@Index_cshtml.ZipCode</strong> {{response.Address.ZIPCode}}</p>
 					</div>
 					<div class="ui segment">
-						<p>&nbsp;&nbsp;<strong>@Index_cshtml.Street</strong> {{obj.Address.Street}}</p>
+						<p>&nbsp;&nbsp;<strong>@Index_cshtml.Street</strong> {{response.Address.Street}}</p>
 					</div>
 				</div>
 				<div class="ui segment">
-					<p><strong>@Index_cshtml.Created</strong> {{obj.Created}}</p>
+					<p><strong>@Index_cshtml.Created</strong> {{response.Created}}</p>
 				</div>
 				<div class="ui segment">
-					<p><strong>@Index_cshtml.Estate</strong> {{obj.Estate}}</p>
+					<p><strong>@Index_cshtml.Estate</strong> {{response.Estate}}</p>
+				</div>
+				<div class="ui segment">
+					<p><strong>@Index_cshtml.EstatePaid</strong> {{response.EstatePercent}}</p>
 				</div>
 			</div>
 		</div>
@@ -53,38 +71,90 @@
 			<div class="ui raised segment" id="extendedInfo">
 				<div class="ui header">@Index_cshtml.ExtendedInfos</div>
 				<div class="ui segments">
-					<div class="ui segment"><strong>@Index_cshtml.Members</strong></div>
-					<div class="ui black segment" v-for="member in obj.Members">
+					<div class="ui segment">
+						<p><strong>@Index_cshtml.BoardRulling</strong> {{response.BoardRulling}}</p>
+					</div>
+					<div class="ui segment" id="members">
+						<strong>@Index_cshtml.Members</strong>
+					</div>
+					<div class="ui black segment" v-for="member in response.Members">
 						<div class="ui segment">
-							<p><strong>@Index_cshtml.FullName</strong> {{member.FullName}}</p>
+							<p>
+								<strong>@Index_cshtml.FullName</strong> {{member.FullName}}
+							</p>
 						</div>
 						<div class="horizontal segments">
 							<div class="ui segment">
-								<p><strong>@Index_cshtml.Born</strong> {{member.Born}}</p>
+								<p>
+									<strong>@Index_cshtml.Born</strong> {{member.Born}}
+								</p>
 							</div>
 							<div class="ui segment">
-								<p><strong>@Index_cshtml.Role</strong> {{member.Role}}</p>
+								<p>
+									<strong>@Index_cshtml.Role</strong> {{member.Role}}
+								</p>
 							</div>
 						</div>
 						<div class="ui segment">
 							<strong>@Index_cshtml.AddressInfos</strong>
 							<div class="ui horizontal segments">
-								<div class="ui segment">&nbsp;&nbsp;<strong>@Index_cshtml.Country</strong> {{member.Address.Country}}</div>
-								<div class="ui segment">&nbsp;&nbsp;<strong>@Index_cshtml.City</strong> {{member.Address.City}}</div>
+								<div class="ui segment">
+									&nbsp;&nbsp;<strong>@Index_cshtml.Country</strong> {{member.Address.Country}}
+								</div>
+								<div class="ui segment">
+									&nbsp;&nbsp;<strong>@Index_cshtml.City</strong> {{member.Address.City}}
+								</div>
 							</div>
 							<div class="ui horizontal segments">
-								<div class="ui segment">&nbsp;&nbsp;<strong>@Index_cshtml.ZipCode</strong> {{member.Address.ZIPCode}}</div>
-								<div class="ui segment">&nbsp;&nbsp;<strong>@Index_cshtml.Street</strong> {{member.Address.Street}}</div>
+								<div class="ui segment">
+									&nbsp;&nbsp;<strong>@Index_cshtml.ZipCode</strong> {{member.Address.ZIPCode}}
+								</div>
+								<div class="ui segment">
+									&nbsp;&nbsp;<strong>@Index_cshtml.Street</strong> {{member.Address.Street}}
+								</div>
 							</div>
 						</div>
 						<div class="ui segment">
-							<p><strong>@Index_cshtml.MembershipStartDate</strong> {{member.MemberStartDate}}</p>
+							<p>
+								<strong>@Index_cshtml.MembershipStartDate</strong> {{member.MemberStartDate}}
+							</p>
 						</div>
 						<div class="ui segment">
-							<p><strong>@Index_cshtml.FunctionStartDate</strong> {{member.MemberStartDate}}</p>
+							<p>
+								<strong>@Index_cshtml.FunctionStartDate</strong> {{member.MemberStartDate}}
+							</p>
 						</div>
 					</div>
 				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="ui segment" id="error">
+		<p><strong>Error: </strong>{{response.Error}}</p>
+	</div>
+
+	<div class="ui segments">
+		<div class="ui segment">
+			<p>
+				<strong>@Index_cshtml.Results</strong>
+			</p>
+		</div>
+		<div class="ui three columns grid segment" v-for="item in multipleResponse.Items">
+			<div class="column">
+				<p>
+					<strong>@Index_cshtml.TaxID</strong>: <a v-on:click="SearchTaxId(item.TaxId)">{{item.TaxId}}</a> 
+				</p>
+			</div>
+			<div class="column">
+				<p>
+					<strong>@Index_cshtml.CompanyName</strong>: {{item.Name}}
+				</p>
+			</div>
+			<div class="column">
+				<p>
+					<strong>@Index_cshtml.Address</strong>: {{item.Address}}
+				</p>
 			</div>
 		</div>
 	</div>
@@ -99,9 +169,10 @@
 			urlForTaxId: '',
 			userInput: '',
 			cityInput: '',
-			obj: {
+			response: {
 				Address: {}
-			}
+			},
+			multipleResponse: {}
 		},
 		watch: {
 			userInput: function (newVal) {
@@ -115,38 +186,51 @@
 		},
 		methods: {
 			SendRequestTo: function (url) {
-				this.$http.get(url)
-					.then(function (response) {
-						console.dir(response);
-						this.obj = response.data;
-						console.log(this.obj);
-					});
+				return this.$http.get(url);
 			},
-			UpdateUserInput: function () {
+			UpdateUserInput: _.debounce(function () {
 				if (this.userInput.length === 8 && Number(this.userInput) !== NaN && this.userInput !== '') {
-					this.MakeRequest('/api/companyregistry/by?taxid=' + this.userInput + '&extended=true');
+					this.MakeRequest('/api/companyregistry/by?taxid=' + this.userInput + '&extended=true')
+						.then(function (response) {
+							this.response = response.data;
+							if (response.Error != null) {
+								$('#error').css('display', '');
+							} else {
+								$('#error').css('display', 'none');
+							}
+						});
+					$('#result').css('display', '');
 				}
 				else if (Number(this.userInput) === NaN) {
-					$('#city').toggleClass('disabled');
+					$('#city').css('display', '');
 				}
-			},
-			SearchByNameAndCity: function () {
-				if (this.city !== '' && this.userInput !== '') {
-					this.MakeRequest('/api/companyregistry/by?name=' + this.userInput + '&city=' + this.city + '&extended=true');
+			}, 1250),
+			SearchByNameAndCity: _.debounce(function () {
+				if (this.cityInput !== '' && this.userInput !== '') {
+					this.MakeRequest('/api/search/by?name=' + this.userInput + '&city=' + this.city + '&extended=true')
+						.then(function (response) {
+							this.multipleResponse = response;
+							$('#result').css('display', 'none');
+						});
 				}
-			},
+			}, 1250),
 			MakeRequest: function (url) {
 				$('#basicInfo').toggleClass('loading');
 				$('#extendedInfo').toggleClass('loading');
 				this.SendRequestTo(url);
 				$('#basicInfo').toggleClass('loading');
 				$('#extendedInfo').toggleClass('loading');
+			},
+			ValidateResponseObj: function () {
+				// Checks if some properties are null
+			},
+			SearchTaxId: function (taxId) {
+				this.UserInput = taxId;
+				$('#result').css('display', '');
 			}
 		},
 		created: function () {
 			$('#result').css('display', 'none');
 		}
 	})
-
-
 </script>

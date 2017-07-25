@@ -78,6 +78,8 @@ namespace AresDataProvider
 				query.Append(queryParts[i]);
 			}
 
+			query.Append("&maxpoc=200");
+
 			return query.ToString();
 		}
 

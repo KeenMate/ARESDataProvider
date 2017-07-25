@@ -307,7 +307,7 @@ window.matchMedia = window.matchMedia || (function(doc, undefined){
 			}
 			req.send( null );
 		},
-		//define ajax obj 
+		//define ajax response 
 		xmlHttp = (function() {
 			var xmlhttpmethod = false;	
 			try {

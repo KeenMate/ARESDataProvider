@@ -321,7 +321,7 @@ window.Modernizr = (function( window, document, undefined ) {
     }
 
     /**
-     * is returns a boolean for if typeof obj is exactly type.
+     * is returns a boolean for if typeof response is exactly type.
      */
     function is( obj, type ) {
         return typeof obj === type;
@@ -384,7 +384,7 @@ window.Modernizr = (function( window, document, undefined ) {
                   return item.bind(elem || obj);
                 }
 
-                // return the unbound function or obj or value
+                // return the unbound function or response or value
                 return item;
             }
         }

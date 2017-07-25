@@ -11,27 +11,18 @@ namespace AresDataProvider
 	{
 		public string BaseUrl { get; set; } = "http://wwwinfo.mfcr.cz/cgi-bin/ares/darv_or.cgi";
 
-		public CompanyDataModel GetCompanyData(string taxId = "", string city = "", string name = "", bool extended = false)
+		public CompanyDataModel GetCompanyData(string taxId = "", bool extended = false)
 		{
-			Data.CompanyRegister.Ares_odpovedi result = webRequestSequence<Data.CompanyRegister.Ares_odpovedi>(prepareUrl(taxId, name, city));
+			Data.CompanyRegister.Ares_odpovedi result = webRequestSequence<Data.CompanyRegister.Ares_odpovedi>(prepareUrl(taxId));
 
 			return extended ? Mappers.RegistryMapper.MapExtendedData(result) : Mappers.RegistryMapper.MapBaseData(result);
 		}
 
-		private string prepareUrl(string taxId, string name, string city)
+		private string prepareUrl(string taxId)
 		{
 			StringBuilder b = new StringBuilder();
 			b.Append(BaseUrl);
-			if (taxId != "")
-			{
-				b.Append($"?ico={taxId}");
-				return b.ToString();
-			}
-			if (name != "")
-				b.Append($"?obch_jm={name}");
-			if (city != "")
-				b.Append($"&obec={city}");
-
+			b.Append($"?ico={taxId}");
 			return b.ToString();
 		}
 

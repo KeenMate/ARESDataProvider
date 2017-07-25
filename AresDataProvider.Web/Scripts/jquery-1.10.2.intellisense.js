@@ -202,7 +202,7 @@ intellisense.annotate(jQuery, {
   'isArray': function() {
     /// <signature>
     ///   <summary>Determine whether the argument is an array.</summary>
-    ///   <param name="obj" type="Object">Object to test whether or not it is an array.</param>
+    ///   <param name="response" type="Object">Object to test whether or not it is an array.</param>
     ///   <returns type="boolean" />
     /// </signature>
   },
@@ -216,7 +216,7 @@ intellisense.annotate(jQuery, {
   'isFunction': function() {
     /// <signature>
     ///   <summary>Determine if the argument passed is a Javascript function object.</summary>
-    ///   <param name="obj" type="PlainObject">Object to test whether or not it is a function.</param>
+    ///   <param name="response" type="PlainObject">Object to test whether or not it is a function.</param>
     ///   <returns type="boolean" />
     /// </signature>
   },
@@ -237,7 +237,7 @@ intellisense.annotate(jQuery, {
   'isWindow': function() {
     /// <signature>
     ///   <summary>Determine whether the argument is a window.</summary>
-    ///   <param name="obj" type="PlainObject">Object to test whether or not it is a window.</param>
+    ///   <param name="response" type="PlainObject">Object to test whether or not it is a window.</param>
     ///   <returns type="boolean" />
     /// </signature>
   },
@@ -251,7 +251,7 @@ intellisense.annotate(jQuery, {
   'makeArray': function() {
     /// <signature>
     ///   <summary>Convert an array-like object into a true JavaScript array.</summary>
-    ///   <param name="obj" type="PlainObject">Any object to turn into a native Array.</param>
+    ///   <param name="response" type="PlainObject">Any object to turn into a native Array.</param>
     ///   <returns type="Array" />
     /// </signature>
   },
@@ -294,12 +294,12 @@ intellisense.annotate(jQuery, {
   'param': function() {
     /// <signature>
     ///   <summary>Create a serialized representation of an array or object, suitable for use in a URL query string or Ajax request.</summary>
-    ///   <param name="obj" type="Object">An array or object to serialize.</param>
+    ///   <param name="response" type="Object">An array or object to serialize.</param>
     ///   <returns type="String" />
     /// </signature>
     /// <signature>
     ///   <summary>Create a serialized representation of an array or object, suitable for use in a URL query string or Ajax request.</summary>
-    ///   <param name="obj" type="Object">An array or object to serialize.</param>
+    ///   <param name="response" type="Object">An array or object to serialize.</param>
     ///   <param name="traditional" type="Boolean">A Boolean indicating whether to perform a traditional "shallow" serialization.</param>
     ///   <returns type="String" />
     /// </signature>
@@ -407,7 +407,7 @@ intellisense.annotate(jQuery, {
   'type': function() {
     /// <signature>
     ///   <summary>Determine the internal JavaScript [[Class]] of an object.</summary>
-    ///   <param name="obj" type="PlainObject">Object to get the internal JavaScript [[Class]] of.</param>
+    ///   <param name="response" type="PlainObject">Object to get the internal JavaScript [[Class]] of.</param>
     ///   <returns type="String" />
     /// </signature>
   },
@@ -1133,7 +1133,7 @@ intellisense.annotate(jQuery.fn, {
     /// </signature>
     /// <signature>
     ///   <summary>Store arbitrary data associated with the matched elements.</summary>
-    ///   <param name="obj" type="Object">An object of key-value pairs of data to update.</param>
+    ///   <param name="response" type="Object">An object of key-value pairs of data to update.</param>
     ///   <returns type="jQuery" />
     /// </signature>
   },

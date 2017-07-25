@@ -11,13 +11,13 @@ namespace AresDataProvider.Data
 
 			public string FullName { get; set; }
 
-			public DateTime Born { get; set; }
+			public DateTime? Born { get; set; }
 
 			public AddressData Address { get; set; }
 
-			public DateTime MemberStartDate { get; set; }
+			public DateTime? MemberStartDate { get; set; }
 
-			public DateTime FunctionStartDate { get; set; }
+			public DateTime? FunctionStartDate { get; set; }
 
 			public DateTime? EndDate { get; set; }
 		}
@@ -33,7 +33,7 @@ namespace AresDataProvider.Data
 
 		public List<BoardMember> Members { get; } = new List<BoardMember>(5);
 
-		public string BoardRuling { get; set; }
+		public string BoardRulling { get; set; }
 
 		public ShareData Share { get; set; } 
 	}

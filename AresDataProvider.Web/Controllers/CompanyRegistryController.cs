@@ -9,25 +9,18 @@ namespace AresDataProvider.Web.Controllers
 	public class CompanyRegistryController : ApiController
 	{
 		[HttpGet]
-		public CompanyDataModel By(string taxId = "", string city = "", string name = "", bool extended = false)
+		public CompanyDataModel By(string taxId = "", bool extended = false)
 		{
-			if ((taxId.Length != 8 || !int.TryParse(taxId, out var x)) && city == "" && name == "")
+			int x;
+			if (taxId.Length != 8 || !int.TryParse(taxId, out x))
 				return new ExtendedCompanyDataModel
 				{
 					Error = "Tax ID is not valid"
 				};
-			if (
-				city == string.Empty
-				&& name == string.Empty
-			)
-				return new ExtendedCompanyDataModel
-				{
-					Error = "Query is empty"
-				};
 
 			CompanyRegistryProvider provider = new CompanyRegistryProvider();
 
-			return provider.GetCompanyData(taxId, city, name, extended);
+			return provider.GetCompanyData(taxId, extended);
 		}
 	}
 }
