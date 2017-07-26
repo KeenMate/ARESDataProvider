@@ -284,6 +284,7 @@
     <Content Include="Content\assets\fonts\icons.woff" />
     <Content Include="Content\assets\fonts\icons.woff2" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\MyVue.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />

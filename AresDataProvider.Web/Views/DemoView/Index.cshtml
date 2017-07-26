@@ -16,19 +16,24 @@
 		margin-top: 20px;
 	}
 
+	#city,
+	#result,
+	#companySearch,
 	#error {
 		display: none;
 	}
 </style>
 
 <div id="vueApp">
-	<div class="ui input">
-		<label>@Index_cshtml.InputField</label>
-		<input type="text" v-model="userInput" placeholder="@Index_cshtml.InputPlaceholder" />
+	<div class="ui icon input">
+		@*<label>@Index_cshtml.InputField</label>*@
+		<input type="text" v-model="userInput" placeholder="@Index_cshtml.InputPlaceholder" tabindex="1" />
+		<i class="trash icon" v-on:click="userInput=''"></i>
 	</div>
-	<div class="ui input" id="city">
-		<label>@Index_cshtml.City</label>
-		<input type="text" v-model="cityInput" placeholder="@Index_cshtml.City" />
+	<div class="ui icon input" id="city">
+		@*<label>@Index_cshtml.City</label>*@
+		<input type="text" v-model="cityInput" placeholder="@Index_cshtml.City" tabindex="2" />
+		<i class="trash icon" v-on:click="cityInput=''"></i>
 	</div>
 
 	<div class="ui two columns grid" id="result">
@@ -36,34 +41,34 @@
 			<div class="ui raised segment" id="basicInfo">
 				<div class="ui header">@Index_cshtml.BasicInfos</div>
 				<div class="ui segment">
-					<p><strong>@Index_cshtml.CompanyName</strong> {{response.CompanyName}}</p>
+					<p><strong>@Index_cshtml.CompanyName</strong> {{registryResponse.CompanyName}}</p>
 				</div>
 				<div class="ui segment">
-					<p><strong>@Index_cshtml.TaxID</strong> {{response.TaxId}}</p>
+					<p><strong>@Index_cshtml.TaxID</strong> {{registryResponse.TaxId}}</p>
 				</div>
 				<div class="ui raised segments">
 					<div class="ui segment">@Index_cshtml.AddressInfos</div>
 					<div class="ui segment">
-						<p>&nbsp;&nbsp;<strong>@Index_cshtml.Country</strong> {{response.Address.Country}}</p>
+						<p>&nbsp;&nbsp;<strong>@Index_cshtml.Country</strong> {{registryResponse.Address.Country}}</p>
 					</div>
 					<div class="ui segment">
-						<p>&nbsp;&nbsp;<strong>@Index_cshtml.City</strong> {{response.Address.City}}</p>
+						<p>&nbsp;&nbsp;<strong>@Index_cshtml.City</strong> {{registryResponse.Address.City}}</p>
 					</div>
 					<div class="ui segment">
-						<p>&nbsp;&nbsp;<strong>@Index_cshtml.ZipCode</strong> {{response.Address.ZIPCode}}</p>
+						<p>&nbsp;&nbsp;<strong>@Index_cshtml.ZipCode</strong> {{registryResponse.Address.ZIPCode}}</p>
 					</div>
 					<div class="ui segment">
-						<p>&nbsp;&nbsp;<strong>@Index_cshtml.Street</strong> {{response.Address.Street}}</p>
+						<p>&nbsp;&nbsp;<strong>@Index_cshtml.Street</strong> {{registryResponse.Address.Street}}</p>
 					</div>
 				</div>
 				<div class="ui segment">
-					<p><strong>@Index_cshtml.Created</strong> {{response.Created}}</p>
+					<p><strong>@Index_cshtml.Created</strong> {{registryResponse.Created}}</p>
 				</div>
 				<div class="ui segment">
-					<p><strong>@Index_cshtml.Estate</strong> {{response.Estate}}</p>
+					<p><strong>@Index_cshtml.Estate</strong> {{registryResponse.Estate}}</p>
 				</div>
 				<div class="ui segment">
-					<p><strong>@Index_cshtml.EstatePaid</strong> {{response.EstatePercent}}</p>
+					<p><strong>@Index_cshtml.EstatePaid</strong> {{registryResponse.EstatePercent}}</p>
 				</div>
 			</div>
 		</div>
@@ -72,12 +77,12 @@
 				<div class="ui header">@Index_cshtml.ExtendedInfos</div>
 				<div class="ui segments">
 					<div class="ui segment">
-						<p><strong>@Index_cshtml.BoardRulling</strong> {{response.BoardRulling}}</p>
+						<p><strong>@Index_cshtml.BoardRulling</strong> {{registryResponse.BoardRulling}}</p>
 					</div>
 					<div class="ui segment" id="members">
 						<strong>@Index_cshtml.Members</strong>
 					</div>
-					<div class="ui black segment" v-for="member in response.Members">
+					<div class="ui black segment" v-for="member in registryResponse.Members">
 						<div class="ui segment">
 							<p>
 								<strong>@Index_cshtml.FullName</strong> {{member.FullName}}
@@ -131,19 +136,27 @@
 	</div>
 
 	<div class="ui segment" id="error">
-		<p><strong>Error: </strong>{{response.Error}}</p>
+		<div class="ui header">@Index_cshtml.Errors</div>
+		<p v-if="registryResponse.Error != null">
+			<strong>Error: </strong>{{registryResponse.Error}}
+		</p>
+		<div v-if="searchResponse.Errors != null">
+			<p v-for="error in searchResponse.Errors">
+				<strong>Error:</strong> {{error}}
+			</p>
+		</div>
 	</div>
 
-	<div class="ui segments">
+	<div id="companySearch" class="ui segments">
 		<div class="ui segment">
 			<p>
 				<strong>@Index_cshtml.Results</strong>
 			</p>
 		</div>
-		<div class="ui three columns grid segment" v-for="item in multipleResponse.Items">
+		<div class="ui three columns divided grid segment" v-for="item in searchResponse.Items">
 			<div class="column">
 				<p>
-					<strong>@Index_cshtml.TaxID</strong>: <a v-on:click="SearchTaxId(item.TaxId)">{{item.TaxId}}</a> 
+					<strong>@Index_cshtml.TaxID</strong>: <a v-on:click="SearchTaxId(item.TaxId)">{{item.TaxId}}</a>
 				</p>
 			</div>
 			<div class="column">
@@ -162,75 +175,4 @@
 
 <script src="~/Scripts/semantic.min.js"></script>
 
-<script>
-	new Vue({
-		el: '#vueApp',
-		data: {
-			urlForTaxId: '',
-			userInput: '',
-			cityInput: '',
-			response: {
-				Address: {}
-			},
-			multipleResponse: {}
-		},
-		watch: {
-			userInput: function (newVal) {
-				this.userInput = newVal;
-				this.UpdateUserInput();
-			},
-			city: function (newVal) {
-				this.city = newVal;
-				this.SearchByNameAndCity();
-			}
-		},
-		methods: {
-			SendRequestTo: function (url) {
-				return this.$http.get(url);
-			},
-			UpdateUserInput: _.debounce(function () {
-				if (this.userInput.length === 8 && Number(this.userInput) !== NaN && this.userInput !== '') {
-					this.MakeRequest('/api/companyregistry/by?taxid=' + this.userInput + '&extended=true')
-						.then(function (response) {
-							this.response = response.data;
-							if (response.Error != null) {
-								$('#error').css('display', '');
-							} else {
-								$('#error').css('display', 'none');
-							}
-						});
-					$('#result').css('display', '');
-				}
-				else if (Number(this.userInput) === NaN) {
-					$('#city').css('display', '');
-				}
-			}, 1250),
-			SearchByNameAndCity: _.debounce(function () {
-				if (this.cityInput !== '' && this.userInput !== '') {
-					this.MakeRequest('/api/search/by?name=' + this.userInput + '&city=' + this.city + '&extended=true')
-						.then(function (response) {
-							this.multipleResponse = response;
-							$('#result').css('display', 'none');
-						});
-				}
-			}, 1250),
-			MakeRequest: function (url) {
-				$('#basicInfo').toggleClass('loading');
-				$('#extendedInfo').toggleClass('loading');
-				this.SendRequestTo(url);
-				$('#basicInfo').toggleClass('loading');
-				$('#extendedInfo').toggleClass('loading');
-			},
-			ValidateResponseObj: function () {
-				// Checks if some properties are null
-			},
-			SearchTaxId: function (taxId) {
-				this.UserInput = taxId;
-				$('#result').css('display', '');
-			}
-		},
-		created: function () {
-			$('#result').css('display', 'none');
-		}
-	})
-</script>
+<script src="~/Scripts/MyVue.js"></script>

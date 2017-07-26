@@ -142,6 +142,15 @@ namespace AresDataProvider.Web.Views.DemoView.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Errors.
+        /// </summary>
+        public static string Errors {
+            get {
+                return ResourceManager.GetString("Errors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Estate.
         /// </summary>
         public static string Estate {

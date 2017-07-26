@@ -144,6 +144,9 @@
   <data name="Created" xml:space="preserve">
     <value>Datum Založení</value>
   </data>
+  <data name="Errors" xml:space="preserve">
+    <value>Chyby</value>
+  </data>
   <data name="Estate" xml:space="preserve">
     <value>Majetek</value>
   </data>
@@ -160,9 +163,9 @@
     <value>Datum Začátku Funkce</value>
   </data>
   <data name="InputField" xml:space="preserve">
-    <value>Pole pro Hledání podle IČO, nebo Názvu firmy</value>
+    <value>Zadejte IČO, nebo název firmy</value>
   </data>
-  <data name="InputPlaceHolder" xml:space="preserve">
+  <data name="InputPlaceholder" xml:space="preserve">
     <value>IČO nebo Název Firmy</value>
   </data>
   <data name="Members" xml:space="preserve">

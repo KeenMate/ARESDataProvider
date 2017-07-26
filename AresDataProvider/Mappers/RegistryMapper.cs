@@ -111,6 +111,7 @@ namespace AresDataProvider.Mappers
 			{
 				d = new ExtendedCompanyDataModel
 				{
+					Address = new CompanyDataModel.AddressData(),
 					Error = data.Odpoved.E.ET
 				};
 			}
