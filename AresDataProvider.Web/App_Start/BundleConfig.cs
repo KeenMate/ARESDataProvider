@@ -33,7 +33,8 @@ namespace AresDataProvider.Web
 								"~/Content/segment.min.css",
 								"~/Content/icon.min.css",
 								"~/Content/tab.min.css",
-								"~/Content/grid.min.css"));
+								"~/Content/grid.min.css",
+								"~/Content/loader.min.css"));
 		}
 	}
 }

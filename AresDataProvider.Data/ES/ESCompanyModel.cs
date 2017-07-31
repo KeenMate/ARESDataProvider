@@ -1,6 +1,6 @@
-﻿namespace AresDataProvider.Data
+﻿namespace AresDataProvider.Data.ES
 {
-	public class CompanySearchItem
+	public class ESCompanyModel
 	{
 		/// <summary>
 		/// ICO

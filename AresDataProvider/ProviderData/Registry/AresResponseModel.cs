@@ -7,7 +7,9 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace AresDataProvider.Data.CompanyRegister
+// OR Ares answer
+
+namespace AresDataProvider.ProviderData.Registry
 {
 	[XmlRoot(ElementName = "VH", Namespace = "http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.3")]
 	public class VH

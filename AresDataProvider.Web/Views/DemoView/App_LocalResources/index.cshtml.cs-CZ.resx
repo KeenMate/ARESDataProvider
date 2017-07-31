@@ -123,6 +123,9 @@
   <data name="AddressInfos" xml:space="preserve">
     <value>Údaje o Adrese</value>
   </data>
+  <data name="BasicData" xml:space="preserve">
+    <value>Výpis dat ze základního rejstříku</value>
+  </data>
   <data name="BasicInfos" xml:space="preserve">
     <value>Zákadní Informace</value>
   </data>
@@ -168,17 +171,26 @@
   <data name="InputPlaceholder" xml:space="preserve">
     <value>IČO nebo Název Firmy</value>
   </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Načítání</value>
+  </data>
   <data name="Members" xml:space="preserve">
     <value>Členové</value>
   </data>
   <data name="MembershipStartDate" xml:space="preserve">
     <value>Datum Začátku Členství</value>
   </data>
+  <data name="PlaceOfEvidence" xml:space="preserve">
+    <value>Registr obsahující záznam</value>
+  </data>
   <data name="Results" xml:space="preserve">
     <value>Výsledky</value>
   </data>
   <data name="Role" xml:space="preserve">
     <value>Role</value>
+  </data>
+  <data name="RZP" xml:space="preserve">
+    <value>Registr živnostenského podnikání</value>
   </data>
   <data name="Street" xml:space="preserve">
     <value>Ulice</value>

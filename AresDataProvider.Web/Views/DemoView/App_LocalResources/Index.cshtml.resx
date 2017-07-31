@@ -123,6 +123,9 @@
   <data name="AddressInfos" xml:space="preserve">
     <value>Address Informations</value>
   </data>
+  <data name="BasicData" xml:space="preserve">
+    <value>Result From Basic Data Register</value>
+  </data>
   <data name="BasicInfos" xml:space="preserve">
     <value>Basic Informations</value>
   </data>
@@ -168,17 +171,26 @@
   <data name="InputPlaceholder" xml:space="preserve">
     <value>Tax ID or Company Name</value>
   </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Loading</value>
+  </data>
   <data name="Members" xml:space="preserve">
     <value>Members</value>
   </data>
   <data name="MembershipStartDate" xml:space="preserve">
     <value>Membership Start Date</value>
   </data>
+  <data name="PlaceOfEvidence" xml:space="preserve">
+    <value>Place of Evidence</value>
+  </data>
   <data name="Results" xml:space="preserve">
     <value>Results</value>
   </data>
   <data name="Role" xml:space="preserve">
     <value>Role</value>
+  </data>
+  <data name="RZP" xml:space="preserve">
+    <value>Business Register </value>
   </data>
   <data name="Street" xml:space="preserve">
     <value>Street</value>

@@ -7,7 +7,9 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace AresDataProvider.Data
+// ES Ares answer
+
+namespace AresDataProvider.ProviderData.ES
 {
 	[XmlRoot(ElementName = "S", Namespace = "http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.4")]
 	public class S

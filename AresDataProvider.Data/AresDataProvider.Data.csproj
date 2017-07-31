@@ -40,13 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AresCompanyModel.cs" />
-    <Compile Include="AresRegistryModel.cs" />
-    <Compile Include="CompanyDataModel.cs" />
-    <Compile Include="CompanySearchItem.cs" />
-    <Compile Include="CompanySearchResult.cs" />
-    <Compile Include="ExtendedCompanyDataModel.cs" />
+    <Compile Include="AddressData.cs" />
+    <Compile Include="Basic\BasicResultModel.cs" />
+    <Compile Include="Registry\RegistryResultModel.cs" />
+    <Compile Include="ES\ESCompanyModel.cs" />
+    <Compile Include="ES\ESResultModel.cs" />
+    <Compile Include="Registry\ExtendedRegistryResultModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RZP\RZPResultModel.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,21 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AresDataProvider.Data
+namespace AresDataProvider.Data.Registry
 {
-	public class CompanyDataModel
+	public class RegistryResultModel
 	{
-		public class AddressData
-		{
-			public string Country { get; set; }
-
-			public string City { get; set; }
-
-			public string Street { get; set; }
-
-			public string ZIPCode { get; set; }
-		}
-
 		public string CompanyName { get; set; }
 
 		public DateTime Created { get; set; }

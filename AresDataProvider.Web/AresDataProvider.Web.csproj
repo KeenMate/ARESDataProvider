@@ -76,6 +76,9 @@
     <Reference Include="Microsoft.Net.Http.Headers, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Net.Http.Headers.1.1.0\lib\netstandard1.1\Microsoft.Net.Http.Headers.dll</HintPath>
     </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.11\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.3.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
@@ -224,10 +227,11 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\CompanyRegistryController.cs" />
-    <Compile Include="Controllers\SearchController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\SearchBasController.cs" />
+    <Compile Include="Controllers\SearchORController.cs" />
+    <Compile Include="Controllers\SearchESController.cs" />
     <Compile Include="Controllers\DemoViewController.cs" />
+    <Compile Include="Controllers\SearchRZPController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -283,6 +287,13 @@
     <Content Include="Content\assets\fonts\icons.eot" />
     <Content Include="Content\assets\fonts\icons.woff" />
     <Content Include="Content\assets\fonts\icons.woff2" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\MyVue.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -311,8 +322,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="logs\" />
     <Folder Include="Models\" />
-    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -347,6 +358,7 @@
     <EmbeddedResource Include="Views\DemoView\App_LocalResources\Index.cshtml.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Index.cshtml.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

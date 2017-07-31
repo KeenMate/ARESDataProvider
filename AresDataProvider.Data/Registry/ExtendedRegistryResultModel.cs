@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AresDataProvider.Data
+namespace AresDataProvider.Data.Registry
 {
-	public class ExtendedCompanyDataModel : CompanyDataModel
+	public class ExtendedRegistryResultModel : RegistryResultModel
 	{
 		public class BoardMember
 		{

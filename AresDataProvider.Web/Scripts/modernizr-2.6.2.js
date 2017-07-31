@@ -679,7 +679,7 @@ window.Modernizr = (function( window, document, undefined ) {
 
         // Webkit's 3D transforms are passed off to the browser's own graphics renderer.
         //   It works fine in Safari on Leopard and Snow Leopard, but not in Chrome in
-        //   some conditions. As a result, Webkit typically recognizes the syntax but
+        //   some conditions. As a registryData, Webkit typically recognizes the syntax but
         //   will sometimes throw a false positive, thus we must do a more thorough check:
         if ( ret && 'webkitPerspective' in docElement.style ) {
 
@@ -983,7 +983,7 @@ window.Modernizr = (function( window, document, undefined ) {
 
     /**
      * addTest allows the user to define their own feature tests
-     * the result will be added onto the Modernizr object,
+     * the registryData will be added onto the Modernizr object,
      * as well as an appropriate className set on the html element
      *
      * @param feature - String naming the feature
