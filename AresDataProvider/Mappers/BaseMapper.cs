@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Security.AccessControl;
 using AresDataProvider.Data;
 using AresDataProvider.Data.Registry;
 using AresDataProvider.Data.Basic;
@@ -17,16 +18,25 @@ namespace AresDataProvider.Mappers
 			return data.Odpoved.E == null
 				? new BasicResultModel
 				{
-					Address = new AddressData
+					Address = new BasicResultModel.AddressDataBasic
 					{
 						City = data.Odpoved.VBAS.AA.N,
 						Country = data.Odpoved.VBAS.AA.NS,
 						Street = data.Odpoved.VBAS.AA.NU,
-						ZipCode = data.Odpoved.VBAS.AA.PSC
+						ZipCode = data.Odpoved.VBAS.AA.PSC,
+						AddressCode = Convert.ToInt32(data.Odpoved.VBAS.AA.AU.KA),
+						CityPartName = data.Odpoved.VBAS.AA.NMC,
+						CountryCode = Convert.ToInt32(data.Odpoved.VBAS.AA.KS),
+						DistrictName = data.Odpoved.VBAS.AA.NOK,
+						DistrictPartName = data.Odpoved.VBAS.AA.NCO,
+						HouseNumber = Convert.ToInt32(data.Odpoved.VBAS.AA.CD),
+						ObjectCode = Convert.ToInt32(data.Odpoved.VBAS.AA.AU.KO),
+						OrientationNumber = Convert.ToInt32(data.Odpoved.VBAS.AA.AU.CO)
 					},
 					Name = data.Odpoved.VBAS.OF.Text,
 					PlaceOfEvidence = data.Odpoved.VBAS.ICO.Zdroj,
-					TaxId = data.Odpoved.VBAS.ICO.Text
+					TaxId = data.Odpoved.VBAS.ICO.Text,
+					ScopeOfBusiness = data.Odpoved.VBAS.Obory_cinnosti.Obor_cinnosti.Select(x => x.T).ToList()
 				}
 				: new BasicResultModel
 				{

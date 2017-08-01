@@ -208,7 +208,7 @@ namespace AresDataProvider.ProviderData.Basic
 	public class Obory_cinnosti
 	{
 		[XmlElement(ElementName = "Obor_cinnosti", Namespace = "http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.3")]
-		public Obor_cinnosti Obor_cinnosti { get; set; }
+		public List<Obor_cinnosti> Obor_cinnosti { get; set; }
 	}
 
 	[XmlRoot(ElementName = "VBAS", Namespace = "http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.3")]

@@ -201,4 +201,34 @@
   <data name="ZipCode" xml:space="preserve">
     <value>PSČ</value>
   </data>
+  <data name="AddressCode" xml:space="preserve">
+    <value>Kód adresy</value>
+  </data>
+  <data name="CityPartName" xml:space="preserve">
+    <value>Název městské části</value>
+  </data>
+  <data name="CountryCode" xml:space="preserve">
+    <value>Kód státu</value>
+  </data>
+  <data name="DistrictName" xml:space="preserve">
+    <value>Název okresu</value>
+  </data>
+  <data name="DistrictPartName" xml:space="preserve">
+    <value>Název části obce</value>
+  </data>
+  <data name="EconomicSubject" xml:space="preserve">
+    <value>Ekonomický subjekt</value>
+  </data>
+  <data name="HouseNumber" xml:space="preserve">
+    <value>Číslo domovní</value>
+  </data>
+  <data name="ObjectCode" xml:space="preserve">
+    <value>Kód objektu</value>
+  </data>
+  <data name="OrientationNumber" xml:space="preserve">
+    <value>Číslo orinetační</value>
+  </data>
+  <data name="ScopeOfBusiness" xml:space="preserve">
+    <value>Obory Činností</value>
+  </data>
 </root>

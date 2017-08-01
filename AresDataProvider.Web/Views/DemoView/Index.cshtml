@@ -46,7 +46,7 @@
 	</div>
 	<div class="ui icon input" id="city">
 		@*<label>@Index_cshtml.City</label>*@
-		<input type="text" v-model="cityInput" placeholder="@Index_cshtml.City" tabindex="2" />
+		<input type="text" v-model="cityInput" v-on:keyup.enter="InstantSearchByNameAndCityInES()" placeholder="@Index_cshtml.City" tabindex="2" />
 		<i class="trash icon" v-on:click="cityInput=''"></i>
 	</div>
 
@@ -55,28 +55,82 @@
 				<div class="ui text loader">@Index_cshtml.Loading</div>
 			</div> Not working
 		</div>*@
-	
+
 	<div class="ui segments" id="basicDataTable">
 		<div class="ui segment">
-			<p><strong>@Index_cshtml.BasicData</strong></p>
+			<p class="ui two columns grid">
+				<strong class="ui column">@Index_cshtml.BasicData</strong>
+				<strong class="ui column"><a v-on:click="SearchByTaxIdInES(responseBasic.TaxId)">@Index_cshtml.EconomicSubject</a></strong>
+			</p>
 		</div>
 		<div class="ui three columns divided grid segment">
 			<div class="ui column">
-				<p><strong>@Index_cshtml.TaxID</strong> {{responseBasic.TaxId}}</p>
+				<p><strong>@Index_cshtml.PlaceOfEvidence</strong> <a v-on:click="SearchTaxId(responseBasic.TaxId)">{{responseBasic.PlaceOfEvidence}}</a></p>
 			</div>
 			<div class="ui column">
-				<p><strong>@Index_cshtml.CompanyName</strong> {{responseBasic.Name}}
+				<p>
+					<strong>@Index_cshtml.TaxID</strong> {{responseBasic.TaxId}}
 				</p>
 			</div>
 			<div class="ui column">
-				<p><strong>@Index_cshtml.PlaceOfEvidence</strong> <a v-on:click="SearchTaxId(responseBasic.TaxId)">{{responseBasic.PlaceOfEvidence}}</a></p>
+				<p>
+					<strong>@Index_cshtml.CompanyName</strong> {{responseBasic.Name}}
+				</p>
+			</div>
+		</div>
+		<div class="ui segment">
+			<p><strong>@Index_cshtml.AddressInfos</strong></p>
+			<div class="ui segments">
+				<div class="ui segment">
+					<p><strong>@Index_cshtml.Country/@Index_cshtml.CountryCode </strong> {{responseBasic.Address.Country}}/{{responseBasic.Address.CountryCode}}</p>
+				</div>
+				<div class="ui five columns grid segment">
+					<div class="ui column">
+						<p>
+							<strong>@Index_cshtml.City </strong> {{responseBasic.Address.City}}
+						</p>
+					</div>
+					<div class="ui column">
+						<p>
+							<strong>@Index_cshtml.DistrictName </strong> {{responseBasic.Address.DistrictName}}
+						</p>
+					</div>
+					<div class="ui column">
+						<p>
+							<strong>@Index_cshtml.DistrictPartName </strong> {{responseBasic.Address.DistrictPartName}}
+						</p>
+					</div>
+					<div class="ui column">
+						<p><strong>@Index_cshtml.DistrictName </strong> {{responseBasic.Address.DistrictName}}</p>
+					</div>
+					<div class="ui column">
+						<p><strong>@Index_cshtml.DistrictPartName </strong> {{responseBasic.Address.DistrictPartName}}</p>
+					</div>
+				</div>
+				
+				<div class="ui four columns grid segment">
+					<p class="ui column"><strong>@Index_cshtml.HouseNumber </strong> {{responseBasic.Address.HouseNumber}}</p>
+					<p class="ui column"><strong>@Index_cshtml.OrientationNumber </strong> {{responseBasic.Address.OrientationNumber}}</p>
+					<p class="ui column"><strong>@Index_cshtml.AddressCode </strong> {{responseBasic.Address.AddressCode}}</p>
+					<p class="ui column"><strong>@Index_cshtml.ObjectCode </strong> {{responseBasic.Address.ObjectCode}}</p>
+				</div>
+				<div class="ui segments">
+					<p><strong>@Index_cshtml.ScopeOfBusiness </strong></p>
+					<div class="ui segment" v-for="item in responseBasic.ScopeOfBusiness">
+						<p>{{item}}</p>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="ui segments" id="rzpData">
 		<div class="ui segment">
-			<p><strong>@Index_cshtml.RZP</strong></p>
+			<p class="ui three columns grid">
+				<strong class="ui column">@Index_cshtml.RZP</strong>
+				<strong class="ui column"><a v-on:click="SearchByTaxIdInES(responseRzp.TaxId)">@Index_cshtml.EconomicSubject</a></strong>
+				<strong class="ui column"><a v-on:click="SearchByTaxIdInBasic(responseRzp.TaxId)">@Index_cshtml.BasicData</a></strong>
+			</p>
 		</div>
 		<div class="ui segments">
 			<div class="ui segment">
@@ -102,9 +156,15 @@
 	<div class="ui two columns grid" id="registryData">
 		<div class="column">
 			<div class="ui raised segment" id="basicInfo">
-				<div class="ui header">@Index_cshtml.BasicInfos</div>
+				<div class="ui three columns grid header">
+					<div class="ui column">@Index_cshtml.BasicInfos</div>
+					<strong class="ui column"><a v-on:click="SearchByTaxIdInES(responseOr.TaxId)">@Index_cshtml.EconomicSubject</a></strong>
+					<strong class="ui column"><a v-on:click="SearchByTaxIdInBasic(responseOr.TaxId)">@Index_cshtml.BasicData</a></strong>
+				</div>
 				<div class="ui segment">
-					<p><strong>@Index_cshtml.CompanyName</strong> {{responseOr.CompanyName}}</p>
+					<p>
+						<strong>@Index_cshtml.CompanyName</strong> {{responseOr.CompanyName}}
+					</p>
 				</div>
 				<div class="ui segment">
 					<p><strong>@Index_cshtml.TaxID</strong> {{responseOr.TaxId}}</p>

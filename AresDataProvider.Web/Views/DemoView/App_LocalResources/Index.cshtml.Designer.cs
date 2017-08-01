@@ -70,6 +70,15 @@ namespace AresDataProvider.Web.Views.DemoView.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Address Code.
+        /// </summary>
+        public static string AddressCode {
+            get {
+                return ResourceManager.GetString("AddressCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Address Informations.
         /// </summary>
         public static string AddressInfos {
@@ -124,6 +133,15 @@ namespace AresDataProvider.Web.Views.DemoView.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to City Part Name.
+        /// </summary>
+        public static string CityPartName {
+            get {
+                return ResourceManager.GetString("CityPartName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Company Name.
         /// </summary>
         public static string CompanyName {
@@ -142,11 +160,47 @@ namespace AresDataProvider.Web.Views.DemoView.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Country Code.
+        /// </summary>
+        public static string CountryCode {
+            get {
+                return ResourceManager.GetString("CountryCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Created.
         /// </summary>
         public static string Created {
             get {
                 return ResourceManager.GetString("Created", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to District Name.
+        /// </summary>
+        public static string DistrictName {
+            get {
+                return ResourceManager.GetString("DistrictName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to District Part Name.
+        /// </summary>
+        public static string DistrictPartName {
+            get {
+                return ResourceManager.GetString("DistrictPartName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Economic Subejct.
+        /// </summary>
+        public static string EconomicSubject {
+            get {
+                return ResourceManager.GetString("EconomicSubject", resourceCulture);
             }
         }
         
@@ -205,6 +259,15 @@ namespace AresDataProvider.Web.Views.DemoView.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to House Number.
+        /// </summary>
+        public static string HouseNumber {
+            get {
+                return ResourceManager.GetString("HouseNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Input Field for Tax ID or Company Name.
         /// </summary>
         public static string InputField {
@@ -250,6 +313,24 @@ namespace AresDataProvider.Web.Views.DemoView.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Object Code.
+        /// </summary>
+        public static string ObjectCode {
+            get {
+                return ResourceManager.GetString("ObjectCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Orientation Number.
+        /// </summary>
+        public static string OrientationNumber {
+            get {
+                return ResourceManager.GetString("OrientationNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Place of Evidence.
         /// </summary>
         public static string PlaceOfEvidence {
@@ -282,6 +363,15 @@ namespace AresDataProvider.Web.Views.DemoView.App_LocalResources {
         public static string RZP {
             get {
                 return ResourceManager.GetString("RZP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scope Of Business.
+        /// </summary>
+        public static string ScopeOfBusiness {
+            get {
+                return ResourceManager.GetString("ScopeOfBusiness", resourceCulture);
             }
         }
         

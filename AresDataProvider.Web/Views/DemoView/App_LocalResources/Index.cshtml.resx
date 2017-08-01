@@ -201,4 +201,34 @@
   <data name="ZipCode" xml:space="preserve">
     <value>Zip Code</value>
   </data>
+  <data name="AddressCode" xml:space="preserve">
+    <value>Address Code</value>
+  </data>
+  <data name="CityPartName" xml:space="preserve">
+    <value>City Part Name</value>
+  </data>
+  <data name="CountryCode" xml:space="preserve">
+    <value>Country Code</value>
+  </data>
+  <data name="DistrictName" xml:space="preserve">
+    <value>District Name</value>
+  </data>
+  <data name="DistrictPartName" xml:space="preserve">
+    <value>District Part Name</value>
+  </data>
+  <data name="EconomicSubject" xml:space="preserve">
+    <value>Economic Subejct</value>
+  </data>
+  <data name="HouseNumber" xml:space="preserve">
+    <value>House Number</value>
+  </data>
+  <data name="ObjectCode" xml:space="preserve">
+    <value>Object Code</value>
+  </data>
+  <data name="OrientationNumber" xml:space="preserve">
+    <value>Orientation Number</value>
+  </data>
+  <data name="ScopeOfBusiness" xml:space="preserve">
+    <value>Scope Of Business</value>
+  </data>
 </root>
