@@ -48,9 +48,6 @@ namespace AresDataProvider
 			Logger.Debug($"{CorrelationId} - Got Response from ARES. Time:{watch.Elapsed}");
 			watch.Restart();
 
-			if (aresResponse.Odpoved.E != null)
-				Logger.Debug($"{CorrelationId} - ARES response contains HelpMsg. HelpMsg: {aresResponse.Odpoved.E.ET}");
-
 			BasicResultModel result = BaseMapper.MapBasicData(aresResponse);
 
 			Logger.Debug($"{CorrelationId} - ARES response mapped. Time:{watch.Elapsed}");

@@ -3,12 +3,13 @@ using System.Diagnostics;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using AresDataProvider.Data.ES;
+using AresDataProvider.Web.Helpers;
 using NLog;
 
 
 namespace AresDataProvider.Web.Controllers
 {
-	[EnableCors(origins: "https://keenmate.sharepoint.com", methods: "*", headers: "*")]
+	[EnableCorsByDomain]
 	public class SearchESController : ApiController
 	{
 		private static readonly ILogger logger = LogManager.GetCurrentClassLogger();
@@ -22,10 +23,23 @@ namespace AresDataProvider.Web.Controllers
 
 			CompanyESProvider provider = new CompanyESProvider(correlationId);
 
-			ESResultModel result = provider.Search(taxId, name, city);
+			ESResultModel result;
+
+			try
+			{
+				result = provider.Search(taxId, name, city);
+			}
+			catch (Exception e)
+			{
+				logger.Error($"{correlationId} - Error appeared: {e}");
+				result = new ESResultModel();
+				result.Errors.Add("Request failed");
+				return result;
+			}
 
 			logger.Debug($"{correlationId} - Search ES Request ended. Time:{watch.Elapsed}");
 
+			result.TimeTaken = watch.Elapsed;
 			return result;
 		}
 
@@ -42,11 +56,24 @@ namespace AresDataProvider.Web.Controllers
 
 			CompanyESProvider provider = new CompanyESProvider(correlationId);
 
-			ESResultModel response = provider.GetCompanyByTaxId(taxId);
+			ESResultModel result;
+
+			try
+			{
+				result = provider.GetCompanyByTaxId(taxId);
+			}
+			catch (Exception e)
+			{
+				logger.Error($"{correlationId} - Error appeared: {e}");
+				result = new ESResultModel();
+				result.Errors.Add("Request failed");
+				return result;
+			}
 
 			logger.Debug($"{correlationId} - Search ES Request by taxId:{taxId} finished. Time:{watch.Elapsed}");
 
-			return response;
+			result.TimeTaken = watch.Elapsed;
+			return result;
 		}
 	}
 }

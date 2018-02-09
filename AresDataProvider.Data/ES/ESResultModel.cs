@@ -11,6 +11,6 @@ namespace AresDataProvider.Data.ES
 
 		public List<string> Errors { get; set; }
 
-		public TimeSpan Time { get; set; }
+		public TimeSpan TimeTaken { get; set; }
 	}
 }

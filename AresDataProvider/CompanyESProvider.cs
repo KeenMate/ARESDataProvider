@@ -59,16 +59,12 @@ namespace AresDataProvider
 
 			Ares_odpovedi aresResponse = WebRequestHelper.XmlWebRequestSequence<Ares_odpovedi>(
 				url);
-
-			if (aresResponse.Odpoved.Help != null)
-				Logger.Debug($"{CorrelationId} - ARES response contains Help node." +
-										 $" name:{name}, city:{city}. HelpMsg:{aresResponse.Odpoved.Help.R}");
+			Logger.Debug($"{CorrelationId} - Got response from ARES. Time:{timer.Elapsed}");
+			timer.Restart();
 
 			ESResultModel result = BaseMapper.MapESData(aresResponse);
 
-			result.Time = timer.Elapsed;
-			Logger.Debug($"{CorrelationId} - Request with query:" +
-									 $"{{name: {name}, city: {city}}} finished, Time: {result.Time}");
+			Logger.Debug($"{CorrelationId} - Ares response mapped. Time:{timer.Elapsed}");
 			return result;
 		}
 
@@ -106,8 +102,7 @@ namespace AresDataProvider
 			else
 				return null;
 
-			result.Time = timer.Elapsed;
-			Logger.Debug($"{CorrelationId} - Request finished, Time: {result.Time}");
+			Logger.Debug($"{CorrelationId} - Request finished, Time: {timer.Elapsed}");
 			return result;
 		}
 	}

@@ -394,6 +394,15 @@ namespace AresDataProvider.Web.Views.DemoView.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Got Request in .
+        /// </summary>
+        public static string TimeTaken {
+            get {
+                return ResourceManager.GetString("TimeTaken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zip Code.
         /// </summary>
         public static string ZipCode {

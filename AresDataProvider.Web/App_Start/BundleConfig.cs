@@ -16,6 +16,11 @@ namespace AresDataProvider.Web
 			bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
 									"~/Scripts/modernizr-*"));
 
+			bundles.Add(new ScriptBundle("~/bundles/Vue").Include(
+				"~/Scripts/MyVue.js",
+				"~/Scripts/vue-resource.min.js",
+				"~/Scripts/Vue-multilanguage.js"));
+
 			bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
 								"~/Scripts/bootstrap.js",
 								"~/Scripts/respond.js"));
@@ -26,7 +31,8 @@ namespace AresDataProvider.Web
 
 			bundles.Add(new ScriptBundle("~/bundles/SemanticUI").Include(
 								"~/Scripts/semantic.min.js",
-								"~/Scripts/tab.min.js"));
+								"~/Scripts/tab.min.js",
+								"~/Scripts/dimmer.min.js"));
 
 			bundles.Add(new StyleBundle("~/Content/SemanticUI").Include(
 								"~/Content/semantic.min.css",
@@ -34,7 +40,9 @@ namespace AresDataProvider.Web
 								"~/Content/icon.min.css",
 								"~/Content/tab.min.css",
 								"~/Content/grid.min.css",
-								"~/Content/loader.min.css"));
+								"~/Content/loader.min.css",
+								"~/Content/dimmer.min.css",
+								"~/Content/label.min.css"));
 		}
 	}
 }

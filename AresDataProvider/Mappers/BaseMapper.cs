@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Security.AccessControl;
 using AresDataProvider.Data;
 using AresDataProvider.Data.Registry;
 using AresDataProvider.Data.Basic;
@@ -36,11 +35,12 @@ namespace AresDataProvider.Mappers
 					Name = data.Odpoved.VBAS.OF.Text,
 					PlaceOfEvidence = data.Odpoved.VBAS.ICO.Zdroj,
 					TaxId = data.Odpoved.VBAS.ICO.Text,
-					ScopeOfBusiness = data.Odpoved.VBAS.Obory_cinnosti.Obor_cinnosti.Select(x => x.T).ToList()
+					ScopeOfBusiness = data.Odpoved.VBAS.Obory_cinnosti?.Obor_cinnosti?.Select(x => x.T).ToList()
 				}
 				: new BasicResultModel
 				{
-					Error = data.Odpoved.E.ET
+					Error = data.Odpoved.E.ET,
+					Address = new BasicResultModel.AddressDataBasic()
 				};
 		}
 
@@ -57,7 +57,7 @@ namespace AresDataProvider.Mappers
 					}).ToList()
 					: null,
 				Errors = data.Odpoved.Help?.R,
-				ItemsFound = data.Odpoved.Help != null
+				ItemsFound = data.Odpoved.Help == null
 					? Convert.ToInt32(data.Odpoved.Pocet_zaznamu)
 					: 0
 			};
@@ -76,13 +76,13 @@ namespace AresDataProvider.Mappers
 				},
 				CompanyName = data.Odpoved.Vypis_OR.ZAU.OF,
 				Created = DateTime.ParseExact(data.Odpoved.Vypis_OR.ZAU.DZOR, "yyyy-MM-dd", new CultureInfo("cs-CZ")),
-				Estate = data.Odpoved.Vypis_OR.KAP != null ? Convert
+				Estate = data.Odpoved.Vypis_OR.KAP?.ZA?.VK != null ? Convert
 						.ToInt64(
 							data.Odpoved.Vypis_OR.KAP.ZA.VK.KC
-								.Substring(0, data.Odpoved.Vypis_OR.KAP.ZA.VK.KC.IndexOf(';') - 1))
-					: 0,
-				EstatePercent = data.Odpoved.Vypis_OR.KAP != null ? Convert.ToDecimal(data.Odpoved.Vypis_OR.KAP.ZA.SPL?.PRC ?? string.Empty)
-					: 0,
+								.Substring(0, data.Odpoved.Vypis_OR.KAP.ZA.VK.KC.IndexOf(';') == -1 ? data.Odpoved.Vypis_OR.KAP.ZA.VK.KC.Length : data.Odpoved.Vypis_OR.KAP.ZA.VK.KC.IndexOf(';') - 1))
+					: 0L,
+				EstatePercent = data.Odpoved.Vypis_OR.KAP?.ZA?.SPL?.PRC != null ? Convert.ToDecimal(data.Odpoved.Vypis_OR.KAP.ZA.SPL.PRC)
+					: (decimal?) null,
 				LegalForm = data.Odpoved.Vypis_OR.ZAU.PFO.NPF,
 				ScopeOfBusiness = data.Odpoved.Vypis_OR.CIN != null ? data.Odpoved.Vypis_OR.CIN.PP.T
 					: new List<string>(),
@@ -185,7 +185,10 @@ namespace AresDataProvider.Mappers
 					ZipCode = data.Odpoved.Vypis_RZP.Adresy.A.PSC
 				},
 				Name = data.Odpoved.Vypis_RZP.ZAU.OF,
-				ScopeOfBusiness = data.Odpoved.Vypis_RZP.ZI.Z.Obory_cinnosti.Obor_cinnosti.Select(x => x.T).ToList(),
+				ScopeOfBusiness = data.Odpoved.Vypis_RZP.ZI.Z?.Obory_cinnosti?.Obor_cinnosti.Select(x => x.T).ToList() ?? new List<string>
+				{
+					data.Odpoved.Vypis_RZP.ZI.Z?.PP
+				},
 				TaxId = data.Odpoved.Vypis_RZP.ZAU.ICO
 			};
 		}

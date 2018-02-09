@@ -235,6 +235,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\EnableCorsByDomainAttribute.cs" />
+    <Compile Include="Helpers\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\DemoView\App_LocalResources\index.cshtml.cs-CZ.Designer.cs">
       <DependentUpon>index.cshtml.cs-CZ.resx</DependentUpon>
@@ -251,14 +253,18 @@
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dimmer.min.css" />
     <Content Include="Content\grid.min.css" />
     <Content Include="Content\icon.min.css" />
     <Content Include="Content\input.min.css" />
+    <Content Include="Content\label.min.css" />
+    <Content Include="Content\loader.min.css" />
     <Content Include="Content\segment.min.css" />
     <Content Include="Content\semantic.min.css" />
     <Content Include="Content\tab.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\icons.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -290,10 +296,16 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="fonts\icons.eot" />
+    <Content Include="fonts\icons.woff" />
+    <Content Include="fonts\icons.woff2" />
+    <Content Include="fonts\icons.otf" />
+    <Content Include="fonts\icons.ttf" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\MyVue.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -303,6 +315,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\semantic.min.js" />
     <Content Include="Scripts\tab.min.js" />
+    <Content Include="Scripts\Vue-multilanguage.js" />
     <Content Include="Scripts\vue-resource.min.js" />
     <Content Include="Scripts\vue.js" />
     <Content Include="Scripts\vue.min.js" />

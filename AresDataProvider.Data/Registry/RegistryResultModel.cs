@@ -13,7 +13,7 @@ namespace AresDataProvider.Data.Registry
 
 		public long Estate { get; set; }
 
-		public decimal EstatePercent { get; set; }
+		public decimal? EstatePercent { get; set; }
 
 		public AddressData Address { get; set; }
 
@@ -22,5 +22,7 @@ namespace AresDataProvider.Data.Registry
 		public List<string> ScopeOfBusiness { get; set; }
 
 		public string Error { get; set; }
+
+		public TimeSpan TimeTaken { get; set; }
 	}
 }

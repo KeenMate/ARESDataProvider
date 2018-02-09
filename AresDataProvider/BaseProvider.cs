@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Policy;
 using System.Text;
 using NLog;
 
@@ -13,29 +14,6 @@ namespace AresDataProvider
 
 		public string BaseUrl { get; set; }
 
-		//public virtual string PrepareUrl(string taxId)
-		//{
-		//	StringBuilder b = new StringBuilder();
-
-		//	b.Append(BaseUrl);
-		//	b.Append($"?ico={taxId}");
-
-		//	return b.ToString();
-		//}
-
-		//public virtual string PrepareUrl(string city, string name)
-		//{
-		//	StringBuilder b = new StringBuilder();
-
-		//	b.Append(BaseUrl);
-		//	if (city != string.Empty)
-		//		b.Append($"?obec={city}");
-		//	if (name != string.Empty)
-		//		b.Append($"&obch_jm={name}");
-
-		//	return b.ToString();
-		//}
-
 		public string PrepareUrl(Dictionary<string, string> query)
 		{
 			StringBuilder b = new StringBuilder();
@@ -45,7 +23,16 @@ namespace AresDataProvider
 			if (query.ContainsKey("ico"))
 			{
 				if (query["ico"] == "")
+				{
 					query.Remove("ico");
+					if (query.ContainsKey("obec"))
+					{
+						if (query["obec"] == "")
+						{
+							query.Remove("obec");
+						}
+					}
+				}
 				else
 				{
 					b.Append($"ico={query["ico"]}");
@@ -58,8 +45,11 @@ namespace AresDataProvider
 				b.Append(pair.Key + "=" + pair.Value + "&");
 			}
 
-			SkipForEach: 
+			SkipForEach:
 			string url = b.ToString().TrimEnd('&');
+
+			url += "&max_poc=200";
+			//url += "&filtr=1";
 
 			return url;
 		}

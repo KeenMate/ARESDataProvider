@@ -3,11 +3,12 @@ using System.Diagnostics;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using AresDataProvider.Data.RZP;
+using AresDataProvider.Web.Helpers;
 using NLog;
 
 namespace AresDataProvider.Web.Controllers
 {
-	[EnableCors("https://keenmate.sharepoint.com", "*", "*")]
+	[EnableCorsByDomain]
 	public class SearchRZPController : ApiController
 	{
 		private readonly ILogger logger = LogManager.GetCurrentClassLogger();
@@ -22,10 +23,22 @@ namespace AresDataProvider.Web.Controllers
 
 			CompanyTradesmanProvider provider = new CompanyTradesmanProvider(correlationId);
 
-			RZPResultModel result = provider.GetCompanyByTaxId(taxId);
+			RZPResultModel result;
+
+			//try
+			//{
+			//	result = provider.GetCompanyByTaxId(taxId);
+			//}
+			//catch (Exception e)
+			//{
+			//	logger.Error($"{correlationId} - Error appeared: {e}");
+			//	result = new RZPResultModel { Error = "Request failed" };
+			//}
+			result = provider.GetCompanyByTaxId(taxId);
 
 			logger.Debug($"{correlationId} - Search RZP Request ended. Time:{watch.Elapsed}");
 
+			result.TimeTaken = watch.Elapsed;
 			return result;
 		}
 	}

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AresDataProvider.Data.RZP
 {
@@ -11,5 +12,9 @@ namespace AresDataProvider.Data.RZP
 		public AddressData Address { get; set; }
 
 		public List<string> ScopeOfBusiness { get; set; }
+
+		public string Error { get; set; }
+
+		public TimeSpan TimeTaken { get; set; }
 	}
 }

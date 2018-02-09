@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AresDataProvider.Data.Basic
 {
@@ -34,5 +35,7 @@ namespace AresDataProvider.Data.Basic
 		public AddressDataBasic Address { get; set; }
 
 		public string Error { get; set; }
+
+		public TimeSpan TimeTaken { get; set; }
 	}
 }

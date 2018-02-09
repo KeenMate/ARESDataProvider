@@ -34,6 +34,9 @@
 
 	@Scripts.Render("~/bundles/jquery")
 	@Scripts.Render("~/bundles/SemanticUI")
+	<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+	<script src="https://unpkg.com/vue"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
 	<div class="container body-content">
 		@RenderBody()
 		<hr />
@@ -42,6 +45,7 @@
 		</footer>
 	</div>
 	@Scripts.Render("~/bundles/bootstrap")
+	@Scripts.Render("~/bundles/Vue")
 	@RenderSection("scripts", required: false)
 </body>
 </html>

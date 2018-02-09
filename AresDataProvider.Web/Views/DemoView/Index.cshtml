@@ -3,11 +3,12 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 	ViewBag.Title = "Index";
 }
-<script src="https://unpkg.com/vue"></script>
-<script src="~/Scripts/vue-resource.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
 
 <style>
+	a:hover {
+		cursor: pointer;
+	}
+
 	#vueApp {
 		margin-top: 60px;
 	}
@@ -24,49 +25,60 @@
 		margin-top: 15px;
 	}
 
-	#city,
-	#registryData,
+	#companySearch {
+		padding: 10px;
+	}
+
+	/*#registryData,
 	#companySearch,
 	#error,
 	#basicDataTable,
 	#rzpData {
 		display: none;
+	}*/
+
+	.companyItem {
+		width: 230px;
 	}
 
-	#loader {
-		display: none;
-	}
+		.companyItem:hover {
+			cursor: pointer;
+		}
 </style>
 
 <div id="vueApp">
 	<div class="ui icon input">
-		@*<label>@Index_cshtml.InputField</label>*@
-		<input type="text" v-model="userInput" placeholder="@Index_cshtml.InputPlaceholder" tabindex="1" />
+		<input type="text" v-model="userInput" v-on:keyup.enter="PreSearch()" placeholder="@Index_cshtml.InputPlaceholder" tabindex="1" />
 		<i class="trash icon" v-on:click="userInput=''; cityInput=''"></i>
 	</div>
-	<div class="ui icon input" id="city">
-		@*<label>@Index_cshtml.City</label>*@
-		<input type="text" v-model="cityInput" v-on:keyup.enter="InstantSearchByNameAndCityInES()" placeholder="@Index_cshtml.City" tabindex="2" />
+	<div class="ui icon input" id="city" v-if="cityVisible">
+		<input type="text" v-model="cityInput" v-on:keyup.enter="SearchByNameAndCityInES()" placeholder="@Index_cshtml.City" tabindex="2" />
 		<i class="trash icon" v-on:click="cityInput=''"></i>
 	</div>
 
-	@*<div class="ui segment" id="loader">
-			<div class="ui active dimmer">
-				<div class="ui text loader">@Index_cshtml.Loading</div>
-			</div> Not working
-		</div>*@
+<router-link to="/ico/05441838">Some Route link</router-link>
+	
+<router-view></router-view>
 
-	<div class="ui segments" id="basicDataTable">
+<div class="ui tiny label" v-if="requestTime !== 0">
+		<p>@Index_cshtml.TimeTaken {{requestTime}}</p>
+	</div>
+
+	<div class="ui active inverted dimmer" v-if="isLoading" id="loader">
+		<div class="ui text loader">
+			Loading
+		</div>
+	</div>
+
+	@*<div class="ui segments" id="basicDataTable">
 		<div class="ui segment">
-			<p class="ui two columns grid">
+			<p class="ui three columns grid">
 				<strong class="ui column">@Index_cshtml.BasicData</strong>
+				<strong class="ui column">@Index_cshtml.PlaceOfEvidence <a v-on:click="SearchTaxId(responseBasic.TaxId)">{{responseBasic.PlaceOfEvidence}}</a></strong>
 				<strong class="ui column"><a v-on:click="SearchByTaxIdInES(responseBasic.TaxId)">@Index_cshtml.EconomicSubject</a></strong>
 			</p>
 		</div>
-		<div class="ui three columns divided grid segment">
-			<div class="ui column">
-				<p><strong>@Index_cshtml.PlaceOfEvidence</strong> <a v-on:click="SearchTaxId(responseBasic.TaxId)">{{responseBasic.PlaceOfEvidence}}</a></p>
-			</div>
+		<div class="ui two columns divided grid segment">
 			<div class="ui column">
 				<p>
 					<strong>@Index_cshtml.TaxID</strong> {{responseBasic.TaxId}}
@@ -79,10 +91,14 @@
 			</div>
 		</div>
 		<div class="ui segment">
-			<p><strong>@Index_cshtml.AddressInfos</strong></p>
+			<p>
+				<strong>@Index_cshtml.AddressInfos</strong>
+			</p>
 			<div class="ui segments">
 				<div class="ui segment">
-					<p><strong>@Index_cshtml.Country/@Index_cshtml.CountryCode </strong> {{responseBasic.Address.Country}}/{{responseBasic.Address.CountryCode}}</p>
+					<p>
+						<strong>@Index_cshtml.Country/@Index_cshtml.CountryCode </strong> {{responseBasic.Address.Country}}/{{responseBasic.Address.CountryCode}}
+					</p>
 				</div>
 				<div class="ui five columns grid segment">
 					<div class="ui column">
@@ -97,29 +113,45 @@
 					</div>
 					<div class="ui column">
 						<p>
-							<strong>@Index_cshtml.DistrictPartName </strong> {{responseBasic.Address.DistrictPartName}}
+							<strong>@Index_cshtml.CityPartName </strong> {{responseBasic.Address.CityPartName}}
 						</p>
 					</div>
 					<div class="ui column">
-						<p><strong>@Index_cshtml.DistrictName </strong> {{responseBasic.Address.DistrictName}}</p>
+						<p>
+							<strong>@Index_cshtml.Street </strong> {{responseBasic.Address.Street}}
+						</p>
 					</div>
 					<div class="ui column">
-						<p><strong>@Index_cshtml.DistrictPartName </strong> {{responseBasic.Address.DistrictPartName}}</p>
+						<p>
+							<strong>@Index_cshtml.ZipCode </strong> {{responseBasic.Address.ZipCode}}
+						</p>
 					</div>
 				</div>
-				
+
 				<div class="ui four columns grid segment">
-					<p class="ui column"><strong>@Index_cshtml.HouseNumber </strong> {{responseBasic.Address.HouseNumber}}</p>
-					<p class="ui column"><strong>@Index_cshtml.OrientationNumber </strong> {{responseBasic.Address.OrientationNumber}}</p>
-					<p class="ui column"><strong>@Index_cshtml.AddressCode </strong> {{responseBasic.Address.AddressCode}}</p>
-					<p class="ui column"><strong>@Index_cshtml.ObjectCode </strong> {{responseBasic.Address.ObjectCode}}</p>
+					<p class="ui column">
+						<strong>@Index_cshtml.HouseNumber </strong> {{responseBasic.Address.HouseNumber}}
+					</p>
+					<p class="ui column">
+						<strong>@Index_cshtml.OrientationNumber </strong> {{responseBasic.Address.OrientationNumber}}
+					</p>
+					<p class="ui column">
+						<strong>@Index_cshtml.AddressCode </strong> {{responseBasic.Address.AddressCode}}
+					</p>
+					<p class="ui column">
+						<strong>@Index_cshtml.ObjectCode </strong> {{responseBasic.Address.ObjectCode}}
+					</p>
 				</div>
-				<div class="ui segments">
-					<p><strong>@Index_cshtml.ScopeOfBusiness </strong></p>
-					<div class="ui segment" v-for="item in responseBasic.ScopeOfBusiness">
-						<p>{{item}}</p>
-					</div>
-				</div>
+			</div>
+		</div>
+		<div class="ui segments">
+			<div class="ui segment">
+				<p>
+					<strong>@Index_cshtml.ScopeOfBusiness </strong>
+				</p>
+			</div>
+			<div class="ui segment" v-for="item in responseBasic.ScopeOfBusiness">
+				<p>{{item}}</p>
 			</div>
 		</div>
 	</div>
@@ -141,25 +173,43 @@
 			</div>
 			<div class="ui segments">
 				<div class="ui segment">
-					<p><strong>@Index_cshtml.City </strong> {{responseRzp.Address.City}}</p>
+					@Index_cshtml.AddressInfos
 				</div>
 				<div class="ui segment">
-					<p><strong>@Index_cshtml.Street </strong> {{responseRzp.Address.Street}}</p>
+					<p>
+						<strong>@Index_cshtml.City </strong> {{responseRzp.Address.City}}
+					</p>
 				</div>
 				<div class="ui segment">
-					<p><strong>@Index_cshtml.ZipCode </strong> {{responseRzp.Address.ZipCode}}</p>
+					<p>
+						<strong>@Index_cshtml.Street </strong> {{responseRzp.Address.Street}}
+					</p>
+				</div>
+				<div class="ui segment">
+					<p>
+						<strong>@Index_cshtml.ZipCode </strong> {{responseRzp.Address.ZipCode}}
+					</p>
+				</div>
+			</div>
+			<div class="ui segments">
+				<div class="ui segment" v-for="item in responseRzp.ScopeOfBusiness">
+					<p><strong>@Index_cshtml.ScopeOfBusiness</strong> {{item}}</p>
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<div class="ui two columns grid" id="registryData">
+		<div class="ui two columns">
+			<p class="ui two columns grid segment">
+				<strong class="ui column"><a v-on:click="SearchByTaxIdInES(responseOr.TaxId)">@Index_cshtml.EconomicSubject</a></strong>
+				<strong class="ui column"><a v-on:click="SearchByTaxIdInBasic(responseOr.TaxId)">@Index_cshtml.BasicData</a></strong>
+			</p>
+		</div>
 		<div class="column">
 			<div class="ui raised segment" id="basicInfo">
-				<div class="ui three columns grid header">
-					<div class="ui column">@Index_cshtml.BasicInfos</div>
-					<strong class="ui column"><a v-on:click="SearchByTaxIdInES(responseOr.TaxId)">@Index_cshtml.EconomicSubject</a></strong>
-					<strong class="ui column"><a v-on:click="SearchByTaxIdInBasic(responseOr.TaxId)">@Index_cshtml.BasicData</a></strong>
+				<div class="ui header">
+					<div>@Index_cshtml.BasicInfos</div>
 				</div>
 				<div class="ui segment">
 					<p>
@@ -167,31 +217,47 @@
 					</p>
 				</div>
 				<div class="ui segment">
-					<p><strong>@Index_cshtml.TaxID</strong> {{responseOr.TaxId}}</p>
+					<p>
+						<strong>@Index_cshtml.TaxID</strong> {{responseOr.TaxId}}
+					</p>
 				</div>
 				<div class="ui raised segments">
 					<div class="ui segment">@Index_cshtml.AddressInfos</div>
 					<div class="ui segment">
-						<p>&nbsp;&nbsp;<strong>@Index_cshtml.Country</strong> {{responseOr.Address.Country}}</p>
+						<p>
+							&nbsp;&nbsp;<strong>@Index_cshtml.Country</strong> {{responseOr.Address.Country}}
+						</p>
 					</div>
 					<div class="ui segment">
-						<p>&nbsp;&nbsp;<strong>@Index_cshtml.City</strong> {{responseOr.Address.City}}</p>
+						<p>
+							&nbsp;&nbsp;<strong>@Index_cshtml.City</strong> {{responseOr.Address.City}}
+						</p>
 					</div>
 					<div class="ui segment">
-						<p>&nbsp;&nbsp;<strong>@Index_cshtml.ZipCode</strong> {{responseOr.Address.ZIPCode}}</p>
+						<p>
+							&nbsp;&nbsp;<strong>@Index_cshtml.ZipCode</strong> {{responseOr.Address.ZipCode}}
+						</p>
 					</div>
 					<div class="ui segment">
-						<p>&nbsp;&nbsp;<strong>@Index_cshtml.Street</strong> {{responseOr.Address.Street}}</p>
+						<p>
+							&nbsp;&nbsp;<strong>@Index_cshtml.Street</strong> {{responseOr.Address.Street}}
+						</p>
 					</div>
 				</div>
 				<div class="ui segment">
-					<p><strong>@Index_cshtml.Created</strong> {{responseOr.Created}}</p>
+					<p>
+						<strong>@Index_cshtml.Created</strong> {{responseOr.Created}}
+					</p>
 				</div>
 				<div class="ui segment">
-					<p><strong>@Index_cshtml.Estate</strong> {{responseOr.Estate}}</p>
+					<p>
+						<strong>@Index_cshtml.Estate</strong> {{responseOr.Estate}}
+					</p>
 				</div>
 				<div class="ui segment">
-					<p><strong>@Index_cshtml.EstatePaid</strong> {{responseOr.EstatePercent}}</p>
+					<p>
+						<strong>@Index_cshtml.EstatePaid</strong> {{responseOr.EstatePercent}}
+					</p>
 				</div>
 			</div>
 		</div>
@@ -200,7 +266,9 @@
 				<div class="ui header">@Index_cshtml.ExtendedInfos</div>
 				<div class="ui segments">
 					<div class="ui segment">
-						<p><strong>@Index_cshtml.BoardRulling</strong> {{responseOr.BoardRulling}}</p>
+						<p>
+							<strong>@Index_cshtml.BoardRulling</strong> {{responseOr.BoardRulling}}
+						</p>
 					</div>
 					<div class="ui segment" id="members">
 						<strong>@Index_cshtml.Members</strong>
@@ -274,31 +342,26 @@
 	</div>
 
 	<div id="companySearch" class="ui segments">
-		<div class="ui segment">
+		<div class="ui top attached label">
 			<p>
 				<strong>@Index_cshtml.Results</strong>
 			</p>
 		</div>
-		<div class="ui three columns divided grid segment" v-for="item in responseEs.Items">
-			<div class="column">
-				<p>
-					<strong>@Index_cshtml.TaxID</strong>: <a v-on:click="SearchTaxId(item.TaxId)">{{item.TaxId}}</a>
-				</p>
-			</div>
-			<div class="column">
-				<p>
-					<strong>@Index_cshtml.CompanyName</strong>: {{item.Name}}
-				</p>
-			</div>
-			<div class="column">
-				<p>
-					<strong>@Index_cshtml.Address</strong>: {{item.Address}}
-				</p>
+		<div class="ui grid">
+			<div class="ui four wide column" v-for="item in responseEs.Items">
+				<a v-on:click="SearchByTaxIdInBasic(item.TaxId)" class="companyItem">
+					<div class="ui raised segment">
+						<div class="ui top attached label">
+							<p>{{item.Name}}</p>
+						</div>
+						<p>{{item.TaxId}}</p>
+						<p>{{item.Address}}</p>
+					</div>
+				</a>
 			</div>
 		</div>
-	</div>
+	</div>*@
 </div>
 
 <script src="~/Scripts/semantic.min.js"></script>
 
-<script src="~/Scripts/MyVue.js"></script>

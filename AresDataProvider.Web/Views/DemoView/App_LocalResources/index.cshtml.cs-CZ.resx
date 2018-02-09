@@ -124,7 +124,7 @@
     <value>Údaje o Adrese</value>
   </data>
   <data name="BasicData" xml:space="preserve">
-    <value>Výpis dat ze základního rejstříku</value>
+    <value>Výpis dat ze více registrů</value>
   </data>
   <data name="BasicInfos" xml:space="preserve">
     <value>Zákadní Informace</value>
@@ -139,7 +139,7 @@
     <value>Město</value>
   </data>
   <data name="CompanyName" xml:space="preserve">
-    <value>Název Firmy</value>
+    <value>Název</value>
   </data>
   <data name="Country" xml:space="preserve">
     <value>Stát</value>
@@ -230,5 +230,8 @@
   </data>
   <data name="ScopeOfBusiness" xml:space="preserve">
     <value>Obory Činností</value>
+  </data>
+  <data name="TimeTaken" xml:space="preserve">
+    <value>Vyhledáno za </value>
   </data>
 </root>

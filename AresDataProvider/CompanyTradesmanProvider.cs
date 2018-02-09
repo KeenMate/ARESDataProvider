@@ -22,7 +22,7 @@ namespace AresDataProvider
 
 		public CompanyTradesmanProvider(Guid correlationId, string baseUrl)
 		{
-			this.CorrelationId = correlationId;
+			CorrelationId = correlationId;
 			BaseUrl = baseUrl;
 			Logger = LogManager.GetCurrentClassLogger();
 		}
